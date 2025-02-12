@@ -1,0 +1,70 @@
+{
+	"definition": {
+		"license": {
+			"code": "CC0-1.0",
+			"text": "Creative Commons Zero",
+			"url": "https://creativecommons.org/publicdomain/zero/1.0/"
+		},
+		"version": 1,
+		"type": "pie",
+		"source": "Favorite_pizza.tab"
+	},
+	"data": {
+		"license": {
+			"code": "CC0-1.0",
+			"text": "Creative Commons Zero",
+			"url": "https://creativecommons.org/publicdomain/zero/1.0/"
+		},
+		"description": {
+			"en": "Favorite pizza toppings"
+		},
+		"schema": {
+			"fields": [
+				{
+					"name": "t1",
+					"type": "number",
+					"title": {
+						"en": "pepperoni"
+					}
+				},
+				{
+					"name": "t2",
+					"type": "number",
+					"title": {
+						"en": "ham & pineapple"
+					}
+				},
+				{
+					"name": "t3",
+					"type": "number",
+					"title": {
+						"en": "margherita"
+					}
+				},
+				{
+					"name": "t4",
+					"type": "number",
+					"title": {
+						"en": "napoli"
+					}
+				},
+				{
+					"name": "t5",
+					"type": "number",
+					"title": {
+						"en": "Other"
+					}
+				}
+			]
+		},
+		"data": [
+			[
+				80,
+				37,
+				24,
+				10,
+				3
+			]
+		]
+	}
+}

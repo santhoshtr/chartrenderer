@@ -1,0 +1,55 @@
+{
+	"data": {
+		"description": {
+			"en": "Harvest in seasons"
+		},
+		"license": {
+			"code": "CC0-1.0",
+			"text": "Creative Commons Zero",
+			"url": "https://creativecommons.org/publicdomain/zero/1.0/"
+		},
+		"schema": {
+			"fields": [
+				{
+					"name": "Season",
+					"type": "string",
+					"title": {
+						"en": "Season"
+					}
+				}
+			]
+		},
+		"data": [
+			[
+				"Spring",
+				35
+			],
+			[
+				"Summer",
+				56
+			],
+			[
+				"Autumn",
+				70
+			],
+			[
+				"Winter",
+				10
+			]
+		]
+	},
+	"definition": {
+		"license": {
+			"code": "CC0-1.0",
+			"text": "Creative Commons Zero",
+			"url": "https://creativecommons.org/publicdomain/zero/1.0/"
+		},
+		"legend": {
+			"en": "Kilograms of Apple Harvested",
+			"fr": "Kilogrammes de pommes récoltés"
+		},
+		"version": 1,
+		"type": "pie",
+		"source": "Kilograms of Apple Harvested.tab"
+	}
+}

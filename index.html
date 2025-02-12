@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="" />
+        <meta name="author" content="Santhosh Thottingal" />
+        <meta name="color-scheme" content="dark light">
+        <script src="/assets/wasm-exec.js"></script>
+        <script src="/assets/wiki-chart.js"  type="module"></script>
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+        <script src="/assets/echarts.esm.js" type="module"></script>
+        <link rel="stylesheet" href="/assets/style.css" />
+        <script type="module">
+            // Promise to load the wasm file
+            function loadWasm(path) {
+                const go = new Go()
+
+                return new Promise((resolve, reject) => {
+                    WebAssembly.instantiateStreaming(fetch(path), go.importObject)
+                        .then(result => {
+                            go.run(result.instance)
+                            resolve(result.instance)
+                        })
+                        .catch(error => {
+                            reject(error)
+                        })
+                })
+            }
+
+            let factoids = {};
+
+            await loadWasm('/build/chartadapter.wasm');
+            console.log("WASM initialized");
+
+        </script>
+
+    </head>
+
+    <body>
+        <header>
+            <h1>Wiki Chart Adapter</h1>
+        </header>
+        <main>
+            <form onsubmit="updateChart();return false;">
+                <label for="chart-url">Enter an https:// URL:</label>
+                <input type="url" id="chart-url" name="chart-url" pattern="https://.*.chart" size="30" required
+                    placeholder="Enter a Wikipedia Chart URL"
+                    value="https://commons.wikimedia.org/wiki/Data:1993_Canadian_federal_election.chart" />
+            </form>
+            <wiki-chart chart=""></wiki-chart>
+        </main>
+        <script>
+            function updateChart() {
+                var url = document.getElementById('chart-url').value;
+                console.log("Updating chart with url", url);
+                var chart = document.querySelector('wiki-chart');
+                chart.setAttribute('chart', url);
+            }
+
+        </script>
+
+    </body>
+
+</html>

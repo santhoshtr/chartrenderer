@@ -1,0 +1,6 @@
+{
+    "type": "module",
+    "scripts": {
+        "start": "/data/project/chartrenderer/.nvm/versions/node/v22.14.0/bin/node server.js"
+    }
+}
