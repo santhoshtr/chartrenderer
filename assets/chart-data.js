@@ -32,14 +32,14 @@ export function normalizeData(data) {
     data.license = { code: data.license };
   }
   if (typeof data.title === "string") {
-    data.title = { "en": data.title };
+    data.title = { en: data.title };
   }
 
   if (typeof data.xAxis?.title === "string") {
-    data.xAxis.title = { "en": data.xAxis.title };
+    data.xAxis.title = { en: data.xAxis.title };
   }
   if (typeof data.yAxis?.title === "string") {
-    data.yAxis.title = { "en": data.yAxis.title };
+    data.yAxis.title = { en: data.yAxis.title };
   }
   return data;
 }

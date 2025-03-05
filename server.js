@@ -1,12 +1,12 @@
-import { createServer } from "http";
+import { createServer } from "node:http";
 import "./assets/wasm-exec.js";
-import { createReadStream, readFileSync, existsSync } from "fs";
+import { createReadStream, readFileSync, existsSync } from "node:fs";
 import {
   fetchGraphData,
   fetchGraphDefinition,
   normalizeData,
 } from "./assets/chart-data.js";
-import URL from "url";
+import URL from "node:url";
 import { init, registerTheme } from "./assets/echarts.esm.js";
 
 const PORT = process.env.PORT || 8080;
@@ -44,12 +44,12 @@ function initWasm(path) {
 
 async function getSpec(hostname, article) {
   const graphDefinition = await fetchGraphDefinition(
-    hostname + ".wikimedia.org",
-    article
+    `${hostname}.wikimedia.org`,
+    article,
   );
   const graphData = await fetchGraphData(
-    hostname + ".wikimedia.org",
-    `Data:${graphDefinition.source}`
+    `${hostname}.wikimedia.org`,
+    `Data:${graphDefinition.source}`,
   );
 
   const echartOption = GetEchartOptions({
@@ -92,7 +92,7 @@ const server = createServer(async (req, res) => {
   if (req.method === "GET") {
     if (assetsmatch) {
       try {
-        if (!existsSync("." + route)) {
+        if (!existsSync(`.${route}`)) {
           throw new Error("File not found");
         }
         const mimeType = {
@@ -101,10 +101,10 @@ const server = createServer(async (req, res) => {
           ".wasm": "application/wasm",
         }[route.match(/\.\w+$/)[0]];
         res.setHeader("Content-Type", mimeType);
-        createReadStream("." + route).pipe(res);
+        createReadStream(`.${route}`).pipe(res);
       } catch (error) {
         res.statusCode = 404;
-        res.end("Asset not found!" + route);
+        res.end(`Asset not found!${route}`);
       }
       return;
     }
@@ -137,10 +137,12 @@ const server = createServer(async (req, res) => {
       const svg = await render(spec);
       res.statusCode = 200;
       res.setHeader("Content-Type", "text/html");
-      res.write(`<wiki-chart data-chart="${encodeURIComponent(JSON.stringify(spec))}" >`);
+      res.write(
+        `<wiki-chart data-chart="${encodeURIComponent(JSON.stringify(spec))}" >`,
+      );
       res.write(`<template shadowrootmode="open">`);
       res.write(
-        `<img src="/svg/${domain}/${chartname}" alt="${chartname}" width="100%" height="100%"/>`
+        `<img src="/svg/${domain}/${chartname}" alt="${chartname}" width="100%" height="100%"/>`,
       );
       res.write(`</template>`);
       res.write(`</wiki-chart>`);

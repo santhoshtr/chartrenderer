@@ -54,8 +54,6 @@ const URLs = {
   echarts: "https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js",
 };
 
-let echarts = window.echarts;
-
 class WikiChart extends HTMLElement {
   constructor() {
     super();
@@ -64,7 +62,7 @@ class WikiChart extends HTMLElement {
     this.rendered = false;
     this.wikichart = null;
     // check for a Declarative Shadow Root.
-    let shadow = this.internals?.shadowRoot;
+    const shadow = this.internals?.shadowRoot;
     if (!shadow) {
       this.attachShadow({ mode: "open" });
       if (this.constructor.template) {
@@ -87,7 +85,7 @@ class WikiChart extends HTMLElement {
         const value = this.getAttribute(name) || config.default;
         if (config.options && !config.options.includes(value)) {
           console.warn(
-            `Invalid value ${value} for property ${name}. Valid options are ${config.options}`
+            `Invalid value ${value} for property ${name}. Valid options are ${config.options}`,
           );
           continue;
         }
@@ -181,7 +179,9 @@ class WikiChart extends HTMLElement {
 
   async render() {
     if (this["data-chart"]) {
-      await this.renderGraph(JSON.parse(decodeURIComponent(this["data-chart"])));
+      await this.renderGraph(
+        JSON.parse(decodeURIComponent(this["data-chart"])),
+      );
     } else if (this.chart) {
       const url = new URL(this.chart);
       this.article = url.pathname.split("/wiki/").pop();
@@ -189,11 +189,11 @@ class WikiChart extends HTMLElement {
       this.title = this.article.split(".")[0].replace(/_/g, " ");
       const graphDefinition = await fetchGraphDefinition(
         this.hostname,
-        this.article
+        this.article,
       );
       const graphData = await fetchGraphData(
         this.hostname,
-        `Data:${graphDefinition.source}`
+        `Data:${graphDefinition.source}`,
       );
       const spec = {
         locale: "en",
@@ -213,7 +213,7 @@ class WikiChart extends HTMLElement {
     this.wikichart = window.echarts.init(
       this.shadowRoot.querySelector(".wiki-chart"),
       this.theme,
-      { renderer: "svg" }
+      { renderer: "svg" },
     );
 
     this.wikichart.setOption(spec);
